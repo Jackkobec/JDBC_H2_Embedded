@@ -6,25 +6,13 @@ import org.junit.Test;
 import persestince.ConnectionManager;
 import persestince.StudentDAO;
 
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Properties;
 
-
-/**
- * Created by Jack on 18.11.2016.
- */
 public class TestStudentDAO {
-
-    private final static String PATH_TO_PROPERTIES = "src/main/resources/app.properties";
-    private Connection connection;
-    private Properties properties;
     private StudentDAO studentDAO;
 
     @Before
-    public void init() throws IOException, SQLException {
+    public void init() {
         studentDAO = new StudentDAO();
     }
 

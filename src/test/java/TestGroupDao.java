@@ -8,11 +8,7 @@ import persestince.GroupDAO;
 
 import java.util.List;
 
-/**
- * Created by Jack on 20.11.2016.
- */
 public class TestGroupDao {
-
     private GroupDAO groupDAO;
 
     @Before

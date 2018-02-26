@@ -6,17 +6,11 @@ import org.junit.Test;
 import persestince.ConnectionManager;
 import persestince.PrepodDAO;
 
-import java.io.IOException;
-import java.sql.SQLException;
-
-/**
- * Created by Jack on 23.11.2016.
- */
 public class TestPrepodDAO {
     private PrepodDAO prepodDAO;
 
     @Before
-    public void init() throws IOException, SQLException {
+    public void init(){
         prepodDAO = new PrepodDAO();
     }
 
