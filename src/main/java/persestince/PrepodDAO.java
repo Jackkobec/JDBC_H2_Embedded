@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PrepodDAO implements CommonDAO<Prepod, Integer> {
-
     private Connection connection;
 
     public PrepodDAO() {

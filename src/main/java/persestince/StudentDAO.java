@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDAO implements CommonDAO<Student, Integer> {
-
     private Connection connection;
 
     public StudentDAO() {

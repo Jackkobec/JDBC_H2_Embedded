@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LessonDAO implements CommonDAO<Lesson, Integer> {
-
     private Connection connection;
 
     public LessonDAO() {
