@@ -12,9 +12,9 @@ import java.util.Properties;
  * Class for get connection with data base
  */
 public class ConnectionManager {
-    public static final String SINGLETON_CLONING_NOT_SUPPORTED = "Singleton cloning not supported.";
-    private ConnectionManager connectionManager;
+    private Connection connection;
 
+    private static final String SINGLETON_CLONING_NOT_SUPPORTED = "Singleton cloning not supported.";
     private static final String PATH_TO_PROPERTIES = "src/main/resources/app.properties";
     private static final String DB_DRIVER = "DB_DRIVER";
     private static final String DB_URL = "DB_URL";
@@ -41,10 +41,13 @@ public class ConnectionManager {
             final Properties properties = loadApplicationProperties();
             Class.forName(properties.getProperty(DB_DRIVER));
 
-            return DriverManager.getConnection(
+            connection = DriverManager.getConnection(
                     properties.getProperty(DB_URL),
                     properties.getProperty(DB_USER),
                     properties.getProperty(DB_PASSWORD));
+
+            return connection;
+
         } catch (final ClassNotFoundException | SQLException | IOException ex) {
             System.out.println(ex.getMessage());
         }
@@ -52,9 +55,19 @@ public class ConnectionManager {
         return null;
     }
 
+    public void closeConnection() {
+
+        try {
+            if(connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     protected Object clone() throws CloneNotSupportedException {
-
         throw new CloneNotSupportedException(SINGLETON_CLONING_NOT_SUPPORTED);
     }
 }
