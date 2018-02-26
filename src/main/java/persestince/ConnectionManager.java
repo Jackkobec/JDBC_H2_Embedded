@@ -21,6 +21,11 @@ public class ConnectionManager {
     private static final String DB_USER = "DB_USER";
     private static final String DB_PASSWORD = "DB_PASSWORD";
 
+    /**
+     * Gets instance of the ConnectionManager
+     *
+     * @return ConnectionManager
+     */
     public static synchronized ConnectionManager getConnectionManager() {
         return new ConnectionManager();
     }
