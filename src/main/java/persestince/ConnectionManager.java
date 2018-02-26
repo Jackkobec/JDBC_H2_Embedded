@@ -21,13 +21,19 @@ public class ConnectionManager {
     private static final String DB_USER = "DB_USER";
     private static final String DB_PASSWORD = "DB_PASSWORD";
 
-    public static synchronized ConnectionManager getConnectionManager(){
+    public static synchronized ConnectionManager getConnectionManager() {
         return new ConnectionManager();
     }
 
     private ConnectionManager() {
     }
 
+    /**
+     * Load application properties from the PATH_TO_PROPERTIES file
+     *
+     * @return Properties
+     * @throws IOException
+     */
     private Properties loadApplicationProperties() throws IOException {
         final Properties properties = new Properties();
         properties.load(new FileInputStream(new File(PATH_TO_PROPERTIES)));
@@ -35,6 +41,11 @@ public class ConnectionManager {
         return properties;
     }
 
+    /**
+     * Open connection to the data base and provide it.
+     *
+     * @return Connection
+     */
     public Connection getConnection() {
 
         try {
@@ -55,10 +66,13 @@ public class ConnectionManager {
         return null;
     }
 
+    /**
+     * Close connection if not closed.
+     */
     public void closeConnection() {
 
         try {
-            if(connection != null && !connection.isClosed()) {
+            if (connection != null && !connection.isClosed()) {
                 connection.close();
             }
         } catch (SQLException e) {
@@ -66,6 +80,12 @@ public class ConnectionManager {
         }
     }
 
+    /**
+     * Disable clone possibility.
+     *
+     * @return Object
+     * @throws CloneNotSupportedException
+     */
     @Override
     protected Object clone() throws CloneNotSupportedException {
         throw new CloneNotSupportedException(SINGLETON_CLONING_NOT_SUPPORTED);
