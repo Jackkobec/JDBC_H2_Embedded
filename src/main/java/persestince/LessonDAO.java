@@ -22,7 +22,7 @@ public class LessonDAO implements CommonDAO<Lesson, Integer> {
         List<Lesson> lessons = new ArrayList<>();
         String sqlQuery = "SELECT * FROM lessons";
 
-        try (ResultSet resultSet = connection.prepareStatement(sqlQuery).executeQuery(sqlQuery)) {
+        try (ResultSet resultSet = connection.prepareStatement(sqlQuery).executeQuery()) {
 
             while (resultSet.next()) {
 
@@ -53,7 +53,7 @@ public class LessonDAO implements CommonDAO<Lesson, Integer> {
         } else throw new NullPointerException("Передано значение null");
 
 
-        try (ResultSet resultSet = connection.prepareStatement(sqlQuery).executeQuery(sqlQuery)) {
+        try (ResultSet resultSet = connection.prepareStatement(sqlQuery).executeQuery()) {
 
             Lesson lesson = new Lesson();
             while (resultSet.next()) {

@@ -35,7 +35,7 @@ public class StudentDAO implements CommonDAO<Student, Integer> {
             sqlQuery = "SELECT * FROM students WHERE students.id = " + id + ";";
         } else throw new NullPointerException("Передано значение null");
 
-        try (ResultSet resultSet = connection.prepareStatement(sqlQuery).executeQuery(sqlQuery)) {
+        try (ResultSet resultSet = connection.prepareStatement(sqlQuery).executeQuery()) {
 
             Student student = new Student();
             while (resultSet.next()) {
@@ -117,7 +117,7 @@ public class StudentDAO implements CommonDAO<Student, Integer> {
             throw new NullPointerException("Передан пустой sqlQuery");
         }
 
-        try (ResultSet resultSet = connection.prepareStatement(sqlQuery).executeQuery(sqlQuery)) {
+        try (ResultSet resultSet = connection.prepareStatement(sqlQuery).executeQuery()) {
 
             List<Student> students = new ArrayList<>();
 

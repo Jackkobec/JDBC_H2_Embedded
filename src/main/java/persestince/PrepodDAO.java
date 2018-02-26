@@ -69,7 +69,7 @@ public class PrepodDAO implements CommonDAO<Prepod, Integer> {
             throw new NullPointerException("Передан пустой sqlQuery");
         }
 
-        try (ResultSet resultSet = connection.prepareStatement(sqlQuery).executeQuery(sqlQuery)) {
+        try (ResultSet resultSet = connection.prepareStatement(sqlQuery).executeQuery()) {
 
             List<Prepod> prepods = new ArrayList<>();
 
@@ -112,7 +112,7 @@ public class PrepodDAO implements CommonDAO<Prepod, Integer> {
             throw new NullPointerException("Передан пустой sqlQuery");
         }
 
-        try (ResultSet resultSet = connection.prepareStatement(sqlQuery).executeQuery(sqlQuery)) {
+        try (ResultSet resultSet = connection.prepareStatement(sqlQuery).executeQuery()) {
 
             Prepod prepod = new Prepod();
             while (resultSet.next()) {

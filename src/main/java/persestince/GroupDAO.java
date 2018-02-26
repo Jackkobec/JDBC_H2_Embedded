@@ -170,7 +170,7 @@ public class GroupDAO implements CommonDAO<Group, Integer> {
             throw new NullPointerException("Передан пустой sqlQuery");
         }
 
-        try (ResultSet resultSet = connection.prepareStatement(sqlQuery).executeQuery(sqlQuery)) {
+        try (ResultSet resultSet = connection.prepareStatement(sqlQuery).executeQuery()) {
 //             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
 //             ResultSet resultSet = preparedStatement.executeQuery(sqlQuery)) {
 
