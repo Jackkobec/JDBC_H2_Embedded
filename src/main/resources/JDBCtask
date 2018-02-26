@@ -1,0 +1,158 @@
+CREATE DATABASE ACP12;
+
+
+CREATE TABLE addresses (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  city VARCHAR (20),
+  street VARCHAR (20),
+  house_num int
+);
+
+//task for db
+
+CREATE DATABASE JDBCactions;
+
+CREATE TABLE groups (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR (20)
+);
+
+INSERT INTO groups(name) VAlUES ('group1');
+INSERT INTO groups(name) VAlUES ('group2');
+INSERT INTO groups(name) VAlUES ('group3');
+
+
+CREATE TABLE students (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR (20),
+  group_id INT,
+  FOREIGN KEY(group_id) REFERENCES groups(id)
+);
+
+INSERT INTO students(name, group_id) VAlUES ('Vasa', 1);
+INSERT INTO students(name, group_id) VAlUES ('Peta',1);
+INSERT INTO students(name, group_id) VAlUES ('Kola',1);
+INSERT INTO students(name, group_id) VAlUES ('Vana',2);
+INSERT INTO students(name, group_id) VAlUES ('Kesha',2);
+INSERT INTO students(name, group_id) VAlUES ('Anna',2);
+INSERT INTO students(name, group_id) VAlUES ('Kata',3);
+INSERT INTO students(name, group_id) VAlUES ('Elena',3);
+
+
+CREATE TABLE lessons (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR (20),
+  description VARCHAR (41)
+);
+
+INSERT INTO lessons(name, description) VAlUES ('math', 'math lesson');
+INSERT INTO lessons(name, description) VAlUES ('physics', 'physics lesson');
+INSERT INTO lessons(name, description) VAlUES ('java', 'java lesson');
+INSERT INTO lessons(name, description) VAlUES ('philosophy', 'philosophy lesson');
+
+
+CREATE TABLE prepods (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR (20),
+  experience INT,
+  lesson_id INT,
+  FOREIGN KEY(lesson_id) REFERENCES lessons(id)
+);
+
+INSERT INTO prepods(name, experience, lesson_id) VAlUES ('Petrovich', 2, 1);
+INSERT INTO prepods(name, experience, lesson_id) VAlUES ('Stepanovich', 3, 2);
+INSERT INTO prepods(name, experience, lesson_id) VAlUES ('Palich', 4, 3);
+INSERT INTO prepods(name, experience, lesson_id) VAlUES ('Solomonovich', 5, 4);
+
+
+CREATE TABLE learning (
+ group_id INT,
+ lesson_id INT
+);
+
+INSERT INTO learning(group_id, lesson_id) VAlUES (1, 1);
+INSERT INTO learning(group_id, lesson_id) VAlUES (1, 2);
+INSERT INTO learning(group_id, lesson_id) VAlUES (1, 3);
+INSERT INTO learning(group_id, lesson_id) VAlUES (1, 4);
+
+INSERT INTO learning(group_id, lesson_id) VAlUES (2, 2);
+INSERT INTO learning(group_id, lesson_id) VAlUES (2, 4);
+
+INSERT INTO learning(group_id, lesson_id) VAlUES (3, 1);
+INSERT INTO learning(group_id, lesson_id) VAlUES (3, 3);
+
+
+//task for db end;
+===================================================================
+ПРИМЕРЫ СИНТАКСИСА:
+UPDATE
+
+UPDATE groups SET groups.name = 'new name' WHERE groups.id = 2;
+
+SELECT
+
+SELECT  * FROM prepods, lessons WHERE prepods.lesson_id = lessons.id;
+
+
+JOINS:  ВЫБОРКА ГРУПП ПО ИМЕНИ ПРЕДМЕТА
+СНАЧАЛА ДЕЛАЕМ LEFT JOIN
+ПОТОМ ДЕЛАЕМ ТУТ ЖЕ RIGHT JOIN
+И ВЫБОРКУ ПО WHERE lessons.name = 'java';
+
+SELECT * FROM learning LEFT JOIN lessons ON learning.lesson_id = lessons.id
+RIGHT JOIN groups ON learning.group_id = groups.id WHERE lessons.name = 'java';
+
+
+select groups.name, count(lessons.id) from groups LEFT JOIN learning ON group_id = learning.group_id
+LEFT JOIN lessons on learning.lesson_id = lessons.id WHERE lessons.name = 'java' GROUP BY groups.id HAVING count(lesson_id) = 1;
+
+select * from groups LEFT JOIN learning ON group_id = learning.group_id
+LEFT JOIN lessons on learning.lesson_id = lessons.id;
+
+//calculate count of all lessons and write to the vatiable
+SET @countOfAllLessons = select count(lessons.id) from lessons;
+
+//compare finded count of lessons in the current group with count of all lessons
+select groups.name, count(lessons.id) from groups LEFT JOIN learning ON group_id = learning.group_id
+  LEFT JOIN lessons on learning.lesson_id = lessons.id WHERE lessons.name = 'java' GROUP BY groups.id HAVING count(lesson_id) = @countOfAllLessons;
+
+
+
+
+select groups.name, count(lessons.id) from groups LEFT JOIN learning ON group_id = learning.group_id
+  LEFT JOIN lessons on learning.lesson_id = lessons.id WHERE lessons.name = 'java' GROUP BY groups.id;
+
+
+select groups.name, count(lessons.id) from groups LEFT JOIN learning ON group_id = learning.group_id
+  LEFT JOIN lessons on learning.lesson_id = lessons.id WHERE lessons.name = 'java' GROUP BY groups.id HAVING count(lesson_id) = 2;
+//max
+select prepods.name, prepods.experience from prepods ORDER BY prepods.experience DESC LIMIT 1;
+//min
+select prepods.name, prepods.experience from prepods ORDER BY prepods.experience ASC LIMIT 1;
+
+select prepods.name, min(prepods.experience) from prepods;
+
+SELECT * from prepods;
+===================================================================
+
+INSERT INTO addresses(city) VAlUES ('Kiev');
+INSERT INTO addresses(city) VAlUES ('Odessa');
+INSERT INTO addresses(city) VAlUES ('Kharkiv');
+
+CREATE TABLE students(
+  name VARCHAR(20),
+  mail VARCHAR(255) UNIQUE NOT NULL,
+  age int,
+  birth DATE NOT NULL,
+  salary DOUBLE,
+  address_id INT,
+  FOREIGN KEY(address_id) REFERENCES addresses(id)
+);
+
+
+INSERT INTO students(name,birth,mail,salary,address_id) VALUES ('Serhii',NOW(),'abc@mail.ru',3000.00,2);
+INSERT INTO students(name,birth,mail,salary,address_id) VALUES ('Oleg',NOW(),'abc2@mail.ru',4000.00,1);
+INSERT INTO students(name,birth,mail,salary,address_id) VALUES ('Ivan',NOW(),'abc3@mail.ru',5000.00,1);
+
+SELECT * FROM students;
+SELECT name, birth FROM students;

@@ -1,0 +1,73 @@
+/*Choose database for using*/
+USE jdbcactions;
+
+/*Table creation*/
+/*CREATE TABLE groups*/
+CREATE TABLE groups (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR (20)
+);
+
+/*CREATE TABLE students
+add relation from group_id to the id in the groups table*/
+CREATE TABLE students (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR (20),
+  group_id INT,
+  FOREIGN KEY(group_id) REFERENCES groups(id)
+);
+
+/*==============================================================*/
+
+/*INSERT*/
+INSERT INTO groups(name) VAlUES ('group1');
+INSERT INTO groups(name) VAlUES ('group2');
+INSERT INTO groups(name) VAlUES ('group3');
+
+INSERT INTO students(name, group_id) VAlUES ('Vasa', 1);
+INSERT INTO students(name, group_id) VAlUES ('Peta',1);
+INSERT INTO students(name, group_id) VAlUES ('Kola',1);
+INSERT INTO students(name, group_id) VAlUES ('Vana',2);
+
+/*==============================================================*/
+
+/*SELECT*/
+/*Select all from students*/
+SELECT * FROM students;
+/*Select name starts on An*/
+SELECT name, group_id FROM students WHERE name LIKE 'An%';
+/*Select name ends on ena*/
+SELECT name, group_id FROM students WHERE name LIKE '%ena';
+/*Select name contains on Va*/
+SELECT name FROM students WHERE name LIKE '%Va%';
+/*Select name not equals 'Vasa' or 'Peta' (!= or <> operator )*/
+SELECT name FROM students WHERE name != 'Vasa' or 'Peta';
+
+/*==============================================================*/
+
+select * from learning;
+
+select groups.name, count(lessons.id) from lessons, groups;
+
+select groups.name, count(lessons.id)  from groups LEFT JOIN learning on groups.id = learning.group_id
+  LEFT JOIN lessons on learning.lesson_id = lessons.id WHERE lessons.name = 'java';
+
+SELECT lessons.name, groups.name, count(DISTINCT lessons.id) from lessons, groups;
+
+SELECT lessons.name, groups.name from lessons, groups GROUP BY lessons.name HAVING count(groups.id) = 4;
+
+INSERT INTO learning(group_id, lesson_id) VAlUES (3, 2);
+INSERT INTO learning(group_id, lesson_id) VAlUES (3, 4);
+
+
+SET @countOfAllLessons = (select count(DISTINCT lessons.name) FROM learning LEFT JOIN groups on groups.id = learning.group_id LEFT JOIN lessons on learning.lesson_id = lessons.id);
+
+
+//
+select groups.name, count(DISTINCT lessons.name) from learning LEFT JOIN groups on groups.id = learning.group_id LEFT JOIN lessons on learning.lesson_id = lessons.id
+ GROUP BY groups.name HAVING count(DISTINCT lessons.name) = @countOfAllLessons;
+
+select groups.name, count(lessons.id) from groups LEFT JOIN learning ON group_id = learning.group_id
+  LEFT JOIN lessons on learning.lesson_id = lessons.id WHERE lessons.name = 'java' GROUP BY groups.id;
+
+select * from groups;

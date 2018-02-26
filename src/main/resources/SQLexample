@@ -1,0 +1,147 @@
+CREATE DATABASE ACP12;
+
+
+CREATE TABLE addresses (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  city VARCHAR (20),
+  street VARCHAR (20),
+  house_num int
+);
+
+//task for db
+
+CREATE TABLE students (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR (20),
+  group_id INT
+);
+
+INSERT INTO students(name) VAlUES ('Vasa');
+INSERT INTO students(name) VAlUES ('Peta');
+INSERT INTO students(name) VAlUES ('Kila');
+
+CREATE TABLE groups (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR (20)
+);
+
+INSERT INTO groups(name) VAlUES ('group1');
+INSERT INTO groups(name) VAlUES ('group2');
+INSERT INTO groups(name) VAlUES ('group2');
+
+CREATE TABLE lesson (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR (20),
+  description VARCHAR (41)
+);
+
+INSERT INTO lesson(name, description) VAlUES ('lesson1', 'this is lesson 1');
+INSERT INTO lesson(name, description) VAlUES ('lesson2', 'this is lesson 2');
+INSERT INTO lesson(name, description) VAlUES ('lesson3', 'this is lesson 3');
+INSERT INTO lesson(name, description) VAlUES ('lesson4', 'this is lesson 4');
+
+
+
+
+
+
+//task for db end;
+
+
+
+
+INSERT INTO addresses(city) VAlUES ('Kiev');
+INSERT INTO addresses(city) VAlUES ('Odessa');
+INSERT INTO addresses(city) VAlUES ('Kharkiv');
+
+CREATE TABLE students(
+  name VARCHAR(20),
+  mail VARCHAR(255) UNIQUE NOT NULL,
+  age int,
+  birth DATE NOT NULL,
+  salary DOUBLE,
+  address_id INT,
+  FOREIGN KEY(address_id) REFERENCES addresses(id)
+);
+
+
+INSERT INTO students(name,birth,mail,salary,address_id) VALUES ('Serhii',NOW(),'abc@mail.ru',3000.00,2);
+INSERT INTO students(name,birth,mail,salary,address_id) VALUES ('Oleg',NOW(),'abc2@mail.ru',4000.00,1);
+INSERT INTO students(name,birth,mail,salary,address_id) VALUES ('Ivan',NOW(),'abc3@mail.ru',5000.00,1);
+
+SELECT * FROM students;
+SELECT name, birth FROM students;
+
+select groups.name, count(lessons.id) from groups LEFT JOIN learning ON group_id = learning.group_id
+LEFT JOIN lessons on learning.lesson_id = lessons.id WHERE lessons.name = 'java' GROUP BY groups.id HAVING count(lesson_id) = 1;
+
+select * from groups LEFT JOIN learning ON group_id = learning.group_id
+LEFT JOIN lessons on learning.lesson_id = lessons.id;
+
+//calculate count of all lessons and write to the vatiable
+SET @countOfAllLessons = select count(lessons.id) from lessons;
+
+//compare finded count of lessons in the current group with count of all lessons
+select groups.name, count(lessons.id) from groups LEFT JOIN learning ON group_id = learning.group_id
+  LEFT JOIN lessons on learning.lesson_id = lessons.id WHERE lessons.name = 'java' GROUP BY groups.id HAVING count(lesson_id) = @countOfAllLessons;
+
+
+
+
+select groups.name, count(lessons.id) from groups LEFT JOIN learning ON group_id = learning.group_id
+  LEFT JOIN lessons on learning.lesson_id = lessons.id WHERE lessons.name = 'java' GROUP BY groups.id;
+
+
+select groups.name, count(lessons.id) from groups LEFT JOIN learning ON group_id = learning.group_id
+  LEFT JOIN lessons on learning.lesson_id = lessons.id WHERE lessons.name = 'java' GROUP BY groups.id HAVING count(lesson_id) = 2;
+//max
+select prepods.name, prepods.experience from prepods ORDER BY prepods.experience DESC LIMIT 1;
+//min
+select prepods.name, prepods.experience from prepods ORDER BY prepods.experience ASC LIMIT 1;
+
+select prepods.name, min(prepods.experience) from prepods;
+
+SELECT * from prepods;
+
+select groups.name, count(lessons.id) from groups LEFT JOIN learning ON group_id = learning.group_id
+  LEFT JOIN lessons on learning.lesson_id = lessons.id WHERE lessons.name = 'java' GROUP BY groups.id HAVING count(lesson_id) = 1;
+
+select * from groups LEFT JOIN learning ON group_id = learning.group_id
+  LEFT JOIN lessons on learning.lesson_id = lessons.id;
+
+select count(lessons.id) from lessons;
+
+//calculate count of all lessons and write to the vatiable
+SET @countOfAllLessons = select count(lessons.id) from lessons;
+
+//compare finded count of lessons in the current group with count of all lessons
+select groups.name, count(lessons.id) from groups LEFT JOIN learning ON group_id = learning.group_id
+  LEFT JOIN lessons on learning.lesson_id = lessons.id WHERE lessons.name = 'java' GROUP BY groups.id HAVING count(lesson_id) = @countOfAllLessons;
+//find count of lessons in the current group
+select groups.name, count(lessons.id) from groups LEFT JOIN learning ON group_id = learning.group_id
+LEFT JOIN lessons on learning.lesson_id = lessons.id WHERE lessons.name = 'physics' GROUP BY groups.id;
+
+select * from groups LEFT JOIN learning ON group_id = learning.group_id
+  LEFT JOIN lessons on learning.lesson_id = lessons.id;
+
+
+-----
+
+select groups.name, count(lessons.id) from groups LEFT JOIN learning ON group_id = learning.group_id
+  LEFT JOIN lessons on learning.lesson_id = lessons.id WHERE lessons.name = 'java' GROUP BY groups.id HAVING count(lesson_id) = @countOfAllLessons;
+
+
+select groups.name, count(lessons.id) from groups LEFT JOIN learning ON group_id = learning.group_id
+  LEFT JOIN lessons on learning.lesson_id = lessons.id WHERE lessons.name = 'java' GROUP BY groups.id;
+
+
+select groups.name, count(lessons.id) from groups LEFT JOIN learning ON group_id = learning.group_id
+  LEFT JOIN lessons on learning.lesson_id = lessons.id WHERE lessons.name = 'java' GROUP BY groups.id HAVING count(lesson_id) = 2;
+//max
+select prepods.name, prepods.experience from prepods ORDER BY prepods.experience DESC LIMIT 1;
+//min
+select prepods.name, prepods.experience from prepods ORDER BY prepods.experience ASC LIMIT 1;
+
+select prepods.name, min(prepods.experience) from prepods;
+
+SELECT * from prepods;

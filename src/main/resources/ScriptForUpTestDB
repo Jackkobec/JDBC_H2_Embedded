@@ -1,0 +1,72 @@
+CREATE DATABASE JDBCactions;
+
+CREATE TABLE groups (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR (20)
+);
+
+INSERT INTO groups(name) VAlUES ('group1');
+INSERT INTO groups(name) VAlUES ('group2');
+INSERT INTO groups(name) VAlUES ('group3');
+
+
+CREATE TABLE students (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR (20),
+  group_id INT,
+  FOREIGN KEY(group_id) REFERENCES groups(id)
+);
+
+INSERT INTO students(name, group_id) VAlUES ('Vasa', 1);
+INSERT INTO students(name, group_id) VAlUES ('Peta',1);
+INSERT INTO students(name, group_id) VAlUES ('Kola',1);
+INSERT INTO students(name, group_id) VAlUES ('Vana',2);
+INSERT INTO students(name, group_id) VAlUES ('Kesha',2);
+INSERT INTO students(name, group_id) VAlUES ('Anna',2);
+INSERT INTO students(name, group_id) VAlUES ('Kata',3);
+INSERT INTO students(name, group_id) VAlUES ('Elena',3);
+
+
+CREATE TABLE lessons (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR (20),
+  description VARCHAR (41)
+);
+
+INSERT INTO lessons(name, description) VAlUES ('math', 'math lesson');
+INSERT INTO lessons(name, description) VAlUES ('physics', 'physics lesson');
+INSERT INTO lessons(name, description) VAlUES ('java', 'java lesson');
+INSERT INTO lessons(name, description) VAlUES ('philosophy', 'philosophy lesson');
+
+
+CREATE TABLE prepods (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR (20),
+  experience INT,
+  lesson_id INT,
+  FOREIGN KEY(lesson_id) REFERENCES lessons(id)
+);
+
+INSERT INTO prepods(name, experience, lesson_id) VAlUES ('Petrovich', 2, 1);
+INSERT INTO prepods(name, experience, lesson_id) VAlUES ('Stepanovich', 3, 2);
+INSERT INTO prepods(name, experience, lesson_id) VAlUES ('Palich', 4, 3);
+INSERT INTO prepods(name, experience, lesson_id) VAlUES ('Solomonovich', 5, 4);
+
+
+CREATE TABLE learning (
+ group_id INT,
+ lesson_id INT
+);
+
+INSERT INTO learning(group_id, lesson_id) VAlUES (1, 1);
+INSERT INTO learning(group_id, lesson_id) VAlUES (1, 2);
+INSERT INTO learning(group_id, lesson_id) VAlUES (1, 3);
+INSERT INTO learning(group_id, lesson_id) VAlUES (1, 4);
+
+INSERT INTO learning(group_id, lesson_id) VAlUES (2, 2);
+INSERT INTO learning(group_id, lesson_id) VAlUES (2, 4);
+
+INSERT INTO learning(group_id, lesson_id) VAlUES (3, 1);
+INSERT INTO learning(group_id, lesson_id) VAlUES (3, 2);
+INSERT INTO learning(group_id, lesson_id) VAlUES (3, 3);
+INSERT INTO learning(group_id, lesson_id) VAlUES (3, 4);
