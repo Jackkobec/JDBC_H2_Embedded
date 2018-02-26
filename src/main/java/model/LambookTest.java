@@ -2,9 +2,6 @@ package model;
 
 import lombok.Data;
 
-/**
- * Created by Jack on 20.11.2016.
- */
 @Data
 public class LambookTest {
     //@Getter @Setter
