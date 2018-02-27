@@ -12,6 +12,8 @@ import java.util.Properties;
  * Class for get connection with data base
  */
 public class ConnectionManager {
+    private static final ConnectionManager connectionManager = new ConnectionManager();
+
     private Connection connection;
 
     private static final String SINGLETON_CLONING_NOT_SUPPORTED = "Singleton cloning not supported.";
@@ -27,7 +29,7 @@ public class ConnectionManager {
      * @return ConnectionManager
      */
     public static synchronized ConnectionManager getConnectionManager() {
-        return new ConnectionManager();
+        return connectionManager;
     }
 
     private ConnectionManager() {
